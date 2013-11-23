@@ -1,0 +1,15 @@
+Actors : System, User
+
+Four Classes:
+Square, Player, Puzzle, PuzzleGenerator
+
+
+USE CASES:
+
+1. User should select a puzzle(easy/medium/difficult)
+2. User enters a number in any sqaure
+3. User changes a number in any square
+
+Use Case 1:
+User should select a puzzle(easy/medium/difficult) results in system generating a puzzle
+
