@@ -22,6 +22,7 @@ package
 				unittests.start(AddTests, null, TestRunner.SHOW_TRACE);
 		 		init();
 				
+				
 			}
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
