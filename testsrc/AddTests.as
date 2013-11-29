@@ -13,7 +13,9 @@ package
 		{
 			super();
 			
-			addTest(new TestSrc("dummyTest"));
+			//addTest(new TestSrc("dummyTest"));
+			//addTest(new TestSrc("isPuzzleSelected"));
+			addTest(new TestSrc("isPuzzleValid"));
 		}
 		
 	}
