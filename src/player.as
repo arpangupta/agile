@@ -6,7 +6,7 @@ package
 	 */
 	public class player 
 	{
-		var sudokuPuzzle:puzzle;
+		public var sudokuPuzzle:puzzle;
 		public function player() 
 		{
 			

@@ -190,7 +190,14 @@ package
                 sudoku[what_to_try] = attempt;
             }
 		//	show_sudoku(sudoku,i);
-			return sudoku;
+				var sudoku_board:Array = new Array();
+				for ( i = 0; i < 81; ++i)
+				{
+					sudoku_board.push(new square( sudoku[i]));
+				}
+				return sudoku_board;
+			
+				//return sudoku;
 		}
 		
 		function show_sudoku(board : Array) : void
