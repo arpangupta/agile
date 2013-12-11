@@ -19,7 +19,15 @@ package
 		public function generateEasyPuzzle(): puzzle {
 			//It makes an object of the the puzzle, populates the appropriate values and returns it
 			var sudokuPuzzle:puzzle = new puzzle();
-			//sudokuPuzzle.board = 
+			sudokuPuzzle.board = generateBoard();
+			while(sudokuPuzzle.perm_ind.length < 50)
+			{
+				var next_rand:int = Math.floor((Math.random() * 80) ); 
+				if (sudokuPuzzle.perm_ind.indexOf(next_rand  ) <= -1)
+				{
+					sudokuPuzzle.perm_ind.push(next_rand);
+				}
+			}
 			
 			return null;
 		}

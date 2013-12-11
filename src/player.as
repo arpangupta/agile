@@ -6,13 +6,13 @@ package
 	 */
 	public class player 
 	{
-		public var sudokuPuzzle:puzzle;
+		public var sudokuPuzzle:puzzle; // will have the player's as well as the solution board
 		public function player() 
 		{
 			
 		}
 		
-		public function chooseAndGeneratePuzzle(type:String)
+		public function chooseAndGeneratePuzzle(type:String) : puzzle
 		{
 			var generator:puzzleGenerator = new puzzleGenerator();
 			switch(type)
@@ -27,7 +27,9 @@ package
 					sudokuPuzzle = generator.generateHardPuzzle();
 					break;
 			}
+			return sudokuPuzzle;
 		}
+		
 		
 	}
 
