@@ -163,25 +163,27 @@ package
 			var value_at_original_sqaures_former:Array = new Array();
 			
 			for (var i:int = 0; i < original_squares.length; ++i  )
-				value_at_original_sqaures_former.push( p1.sudokuPuzzle.player_board[original_squares[i]] );
+				value_at_original_sqaures_former.push( p1.sudokuPuzzle.player_board[original_squares[i]].getValue() );
 				
 			
 			trace("Former values at Original Squares:  " + value_at_original_sqaures_former);
 			
-			for(var index in original_squares)
+			trace("original squares : " + original_squares);
+			for (var i:int = 0; i < original_squares.length; ++i)
 			{
-				assertEquals("Illegal Operation", p1.setSquare(return_row(index), return_col(index), 8 ));
+				assertEquals("Illegal Operation", p1.setSquare(return_row(original_squares[i]), return_col(original_squares[i]), 8 ));
 			}
 			
 			var value_at_original_sqaures_later:Array = new Array();
 			for (var i:int = 0; i < original_squares.length; ++i  )
-				value_at_original_sqaures_later.push( p1.sudokuPuzzle.player_board[original_squares[i]] );
+				value_at_original_sqaures_later.push( p1.sudokuPuzzle.player_board[original_squares[i]].getValue() );
 				
 			
 			trace("Later values at Original Squares:  " + value_at_original_sqaures_later);
 			
 			assertEqualsArrays(value_at_original_sqaures_former, value_at_original_sqaures_later);
 			p1.endGame();
+			
 			
 			//Testing for med puzzle
 			var pzl:puzzle = p1.chooseAndGeneratePuzzle("med");
@@ -190,19 +192,20 @@ package
 			var value_at_original_sqaures_former:Array = new Array();
 			
 			for (var i:int = 0; i < original_squares.length; ++i  )
-				value_at_original_sqaures_former.push( p1.sudokuPuzzle.player_board[original_squares[i]] );
+				value_at_original_sqaures_former.push( p1.sudokuPuzzle.player_board[original_squares[i]].getValue() );
 				
 			
 			trace("Former values at Original Squares:  " + value_at_original_sqaures_former);
 			
-			for(var index in original_squares)
+			trace("original squares : " + original_squares);
+			for (var i:int = 0; i < original_squares.length; ++i)
 			{
-				assertEquals("Illegal Operation", p1.setSquare(return_row(index), return_col(index), 8 ));
+				assertEquals("Illegal Operation", p1.setSquare(return_row(original_squares[i]), return_col(original_squares[i]), 8 ));
 			}
 			
 			var value_at_original_sqaures_later:Array = new Array();
 			for (var i:int = 0; i < original_squares.length; ++i  )
-				value_at_original_sqaures_later.push( p1.sudokuPuzzle.player_board[original_squares[i]] );
+				value_at_original_sqaures_later.push( p1.sudokuPuzzle.player_board[original_squares[i]].getValue() );
 				
 			
 			trace("Later values at Original Squares:  " + value_at_original_sqaures_later);
@@ -217,27 +220,26 @@ package
 			var value_at_original_sqaures_former:Array = new Array();
 			
 			for (var i:int = 0; i < original_squares.length; ++i  )
-				value_at_original_sqaures_former.push( p1.sudokuPuzzle.player_board[original_squares[i]] );
+				value_at_original_sqaures_former.push( p1.sudokuPuzzle.player_board[original_squares[i]].getValue() );
 				
 			
 			trace("Former values at Original Squares:  " + value_at_original_sqaures_former);
 			
-			for(var index in original_squares)
+			trace("original squares : " + original_squares);
+			for (var i:int = 0; i < original_squares.length; ++i)
 			{
-				assertEquals("Illegal Operation", p1.setSquare(return_row(index), return_col(index), 8 ));
+				assertEquals("Illegal Operation", p1.setSquare(return_row(original_squares[i]), return_col(original_squares[i]), 8 ));
 			}
 			
 			var value_at_original_sqaures_later:Array = new Array();
 			for (var i:int = 0; i < original_squares.length; ++i  )
-				value_at_original_sqaures_later.push( p1.sudokuPuzzle.player_board[original_squares[i]] );
+				value_at_original_sqaures_later.push( p1.sudokuPuzzle.player_board[original_squares[i]].getValue() );
 				
 			
 			trace("Later values at Original Squares:  " + value_at_original_sqaures_later);
 			
 			assertEqualsArrays(value_at_original_sqaures_former, value_at_original_sqaures_later);
-			
 			p1.endGame();
-			
 			
 		}
 		

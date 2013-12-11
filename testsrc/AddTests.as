@@ -14,7 +14,7 @@ package
 			super();
 			addTest(new TestSrc("isPuzzleValid"));
 			addTest(new TestSrc("testNewPuzzle"));
-			addTest(new TestSrc("checkSetSquare"));
+			//addTest(new TestSrc("checkSetSquare"));
 			addTest(new TestSrc("checkSetOriginalSquare"));
 			
 		}
