@@ -12,10 +12,11 @@ package
 		public function AddTests() 
 		{
 			super();
-			
-			//addTest(new TestSrc("dummyTest"));
-			//addTest(new TestSrc("isPuzzleSelected"));
 			addTest(new TestSrc("isPuzzleValid"));
+			addTest(new TestSrc("testNewPuzzle"));
+			addTest(new TestSrc("checkSetSquare"));
+			addTest(new TestSrc("checkSetOriginalSquare"));
+			
 		}
 		
 	}
