@@ -37,10 +37,16 @@ package
 			sudokuPuzzle.player_board = new Array();
 		}
 		
-		public function setSquare(i : int , j : int, value : int) : void
+		public function setSquare(i : int , j : int, value : int) : String
 		{
-			var index:int = i * 9 + j;
-			sudokuPuzzle.player_board[index].value = value;
+			var index:int = (i * 9) + j;
+			if(sudokuPuzzle.perm_ind.indexOf(index) <= -1)
+			{
+				sudokuPuzzle.player_board[index].value = value;
+				return "Done";
+			}
+				
+			else return "Illegal Operation";
 		}
 	}
 
