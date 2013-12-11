@@ -7,7 +7,7 @@ package
 	 
 	public class puzzle 
 	{
-		var board:Array;
+		var board:Array; //the solution board
 		public function puzzle() 
 		{
 			trace("Allocating the board");

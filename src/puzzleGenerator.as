@@ -189,7 +189,7 @@ package
                 }
                 sudoku[what_to_try] = attempt;
             }
-		//	show_sudoku(sudoku,i);
+	
 				var sudoku_board:Array = new Array();
 				for ( i = 0; i < 81; ++i)
 				{
@@ -198,11 +198,6 @@ package
 				return sudoku_board;
 			
 				//return sudoku;
-		}
-		
-		function show_sudoku(board : Array) : void
-		{
-			
 		}
 		
 		 function remove_attempt(attempt_array,number) {
