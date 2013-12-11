@@ -8,6 +8,7 @@ package
 	public class player 
 	{
 		public var sudokuPuzzle:puzzle; // will have the player's as well as the solution board
+		public var winStatus:Boolean = false;
 		public function player() 
 		{
 			
@@ -40,6 +41,8 @@ package
 		
 		public function setSquare(i : int , j : int, value : int) : String
 		{
+			if ( !winStatus)
+			{
 			var index:int = (i * 9) + j;
 			if(sudokuPuzzle.perm_ind.indexOf(index) <= -1)
 			{
@@ -62,6 +65,7 @@ package
 					sudokuPuzzle.player_board[index].value = value;
 					if (won())
 					{
+						winStatus = true;
 						return "Won";
 					}
 					else
@@ -69,6 +73,8 @@ package
 				}
 			}	
 			else return "Illegal Operation";
+			}
+			else return "Game Over";
 		}
 		
 		public function won() : Boolean
