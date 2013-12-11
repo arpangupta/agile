@@ -58,13 +58,40 @@ package
 				
 				else
 				{
+					
 					sudokuPuzzle.player_board[index].value = value;
+					if (won())
+					{
+						return "Won";
+					}
+					else
 					return "Done";
 				}
 			}	
 			else return "Illegal Operation";
 		}
 		
+		public function won() : Boolean
+		{
+			if (sudokuPuzzle.board.length == sudokuPuzzle.player_board.length && areEqual(sudokuPuzzle.board, sudokuPuzzle.player_board ))
+				return true;
+			else return false;
+		}
+		
+		public function areEqual(board1:Array, board2 : Array):Boolean
+		{
+			var eq:Boolean = true;
+			var i:int = 0;
+			while(eq && i < board1.length)
+			{
+				if (board1[i].getValue() != board2[i].getValue())
+					eq = false;
+					
+				++i;
+			}
+			
+			return eq;
+		}
 		
 		function is_possible_row(number,row,sudoku):Boolean {
             var possible:Boolean = true;
