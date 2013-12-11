@@ -16,6 +16,7 @@ package
 			addTest(new TestSrc("testNewPuzzle"));
 			//addTest(new TestSrc("checkSetSquare"));
 			addTest(new TestSrc("checkSetOriginalSquare"));
+			addTest(new TestSrc("checkDuplicateNumber"));
 			
 		}
 		

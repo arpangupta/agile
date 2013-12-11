@@ -243,6 +243,28 @@ package
 			
 		}
 		
+		public function checkDuplicateNumber() : void
+		{
+			var p1:player = new player();
+			//check for easy puzzle
+			p1.chooseAndGeneratePuzzle("easy");
+			//removing the perm_index constraint for the ease of testing
+			p1.sudokuPuzzle.perm_ind = new Array(10); 
+			//row duplicate
+			assertEquals("Done", p1.setSquare(0, 0, 9));
+			assertEquals("Duplicate",p1.setSquare(0, 1 , 9)); //the duplicate
+			
+			//column duplicate
+			assertEquals("Duplicate", p1.setSquare(1, 0, 9 )); //duplicate
+			
+			//block duplicate
+			assertEquals("Done", p1.setSquare(1, 1, 8));
+			assertEquals("Done", p1.setSquare(2, 2, 9)); //duplicate
+		}
+		
+		
+		
+		
 		
 		function return_row(cell : int) :int {
             return Math.floor(cell / 9);
