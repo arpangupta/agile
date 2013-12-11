@@ -361,7 +361,7 @@ package
 			//Changing the square value again
 			
 			var before:Array = new Array();
-			for (var i :int = 0; i < 81; ++i  ) before.push(new square(p1.sudokuPuzzle.player_board[i].getValue()));
+			for (var i :int = 0; i < 81; ++i  ) before.push(p1.sudokuPuzzle.player_board[i]);
 			assertEquals("Game Over", p1.setSquare(0, 0, 9));
 			assertEqualsArrays(before, p1.sudokuPuzzle.player_board);
 			
