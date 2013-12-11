@@ -265,8 +265,51 @@ package
 			//block duplicate
 			assertEquals("Done", p1.setSquare(1, 1, 8));
 			assertEquals("Duplicate", p1.setSquare(2, 2, 8)); //duplicate
+			p1.endGame();
+			
+			//testing for med puzzle
+			
+			p1.chooseAndGeneratePuzzle("med");
+			//removing the perm_index constraint for the ease of testing
+			p1.sudokuPuzzle.perm_ind = new Array(10); 
+			//removing the original squares value
+			p1.sudokuPuzzle.player_board = new Array();
+			for (var i: int = 0; i < 81; ++i )
+				p1.sudokuPuzzle.player_board.push(new square(0));
+			//row duplicate
+			assertEquals("Done", p1.setSquare(0, 0, 9));
+			assertEquals("Duplicate",p1.setSquare(0, 1 , 9)); //the duplicate
 			
 			
+			//column duplicate
+			assertEquals("Duplicate", p1.setSquare(1, 0, 9 )); //duplicate
+			
+			//block duplicate
+			assertEquals("Done", p1.setSquare(1, 1, 8));
+			assertEquals("Duplicate", p1.setSquare(2, 2, 8)); //duplicate
+			
+			p1.endGame();
+			
+			//testing for hard puzzle
+			p1.chooseAndGeneratePuzzle("hard");
+			//removing the perm_index constraint for the ease of testing
+			p1.sudokuPuzzle.perm_ind = new Array(10); 
+			//removing the original squares value
+			p1.sudokuPuzzle.player_board = new Array();
+			for (var i: int = 0; i < 81; ++i )
+				p1.sudokuPuzzle.player_board.push(new square(0));
+			//row duplicate
+			assertEquals("Done", p1.setSquare(0, 0, 9));
+			assertEquals("Duplicate",p1.setSquare(0, 1 , 9)); //the duplicate
+			
+			
+			//column duplicate
+			assertEquals("Duplicate", p1.setSquare(1, 0, 9 )); //duplicate
+			
+			//block duplicate
+			assertEquals("Done", p1.setSquare(1, 1, 8));
+			assertEquals("Duplicate", p1.setSquare(2, 2, 8)); //duplicate
+			p1.endGame();
 			
 		}
 		
