@@ -12,11 +12,14 @@ package
 		var perm_ind:Array = new Array(); // the permanent indices, that can't be changed
 		public function puzzle() 
 		{
+			
 			trace("Allocating the board");
-		//	board = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+			
 			board = new Array( );
 			for (var i = 0 ; i < 81; ++i )
-			board.push(new square());
+			board.push(new square(0));
+		
+			
 			
 		}
 		

@@ -13,9 +13,9 @@ package
 		}
 		
 		public function getValue( ) :int
-	{
-		return value;
-	}
+		{
+			return value;
+		}
 		
 	}
 

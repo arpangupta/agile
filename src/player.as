@@ -30,7 +30,18 @@ package
 			return sudokuPuzzle;
 		}
 		
+		public function endGame() : void
+		{
+			sudokuPuzzle.board = new Array();
+			sudokuPuzzle.perm_ind = new Array();
+			sudokuPuzzle.player_board = new Array();
+		}
 		
+		public function setSquare(i : int , j : int, value : int) : void
+		{
+			var index:int = i * 9 + j;
+			sudokuPuzzle.player_board[index].value = value;
+		}
 	}
 
 }
