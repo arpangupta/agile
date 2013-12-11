@@ -18,8 +18,18 @@ package
 		
 		public function generateEasyPuzzle(): puzzle {
 			//It makes an object of the the puzzle, populates the appropriate values and returns it
+			trace("Generating Easy Puzzle");
 			var sudokuPuzzle:puzzle = new puzzle();
+			
 			sudokuPuzzle.board = generateBoard();
+			var board_array = new Array();
+			for (var i:int = 0; i < 81; ++i)
+			{
+				board_array.push(sudokuPuzzle.board[i].getValue());
+			}
+			trace( board_array );
+			
+			
 			while(sudokuPuzzle.perm_ind.length < 50)
 			{
 				var next_rand:int = Math.floor((Math.random() * 80) ); 
@@ -28,20 +38,119 @@ package
 					sudokuPuzzle.perm_ind.push(next_rand);
 				}
 			}
+			sudokuPuzzle.perm_ind.sort(Array.NUMERIC);
+			trace(sudokuPuzzle.perm_ind);
 			
-			return null;
+			//generate the player's board now
+			for ( var i : int = 0; i < 81; ++i )
+			{
+				if ( sudokuPuzzle.perm_ind.indexOf(i) > -1 )
+					sudokuPuzzle.player_board.push( sudokuPuzzle.board[i]);
+				else sudokuPuzzle.player_board.push( new square(0)) ;
+			}
+			
+			//Just for printing
+			var player_board1:Array = new Array();
+			for ( var j : int = 0; j < 81; ++j )
+			{
+				
+				player_board1.push(sudokuPuzzle.player_board[j].getValue());
+			}
+			trace(player_board1);
+			
+			return sudokuPuzzle;
 		}
 		
 		public function generateMedPuzzle():puzzle {
 			//It makes an object of the the puzzle, populates the appropriate values and returns it
+			trace("Generating Med Puzzle");
+			var sudokuPuzzle:puzzle = new puzzle();
 			
-			return null;
+			sudokuPuzzle.board = generateBoard();
+			
+			//for printing
+			var board_array = new Array();
+			for (var i:int = 0; i < 81; ++i)
+			{
+				board_array.push(sudokuPuzzle.board[i].getValue());
+			}
+			trace( board_array );
+			
+			
+			while(sudokuPuzzle.perm_ind.length < 40)
+			{
+				var next_rand:int = Math.floor((Math.random() * 80) ); 
+				if (sudokuPuzzle.perm_ind.indexOf(next_rand  ) <= -1)
+				{
+					sudokuPuzzle.perm_ind.push(next_rand);
+				}
+			}
+			sudokuPuzzle.perm_ind.sort(Array.NUMERIC);
+			trace(sudokuPuzzle.perm_ind);
+			
+			//generate the player's board now
+			for ( var i : int = 0; i < 81; ++i )
+			{
+				if ( sudokuPuzzle.perm_ind.indexOf(i) > -1 )
+					sudokuPuzzle.player_board.push( sudokuPuzzle.board[i]);
+				else sudokuPuzzle.player_board.push( new square(0)) ;
+			}
+			
+			//Just for printing
+			var player_board1:Array = new Array();
+			for ( var j : int = 0; j < 81; ++j )
+			{
+				
+				player_board1.push(sudokuPuzzle.player_board[j].getValue());
+			}
+			trace(player_board1);
+			
+			return sudokuPuzzle;
 		}
 		
 		public function generateHardPuzzle():puzzle {
 			//It makes an object of the the puzzle, populates the appropriate values and returns it
+			trace("Generating Hard Puzzle");
+			var sudokuPuzzle:puzzle = new puzzle();
 			
-			return null;
+			sudokuPuzzle.board = generateBoard();
+			var board_array = new Array();
+			for (var i:int = 0; i < 81; ++i)
+			{
+				board_array.push(sudokuPuzzle.board[i].getValue());
+			}
+			trace( board_array );
+			
+			
+			while(sudokuPuzzle.perm_ind.length < 30)
+			{
+				var next_rand:int = Math.floor((Math.random() * 80) ); 
+				if (sudokuPuzzle.perm_ind.indexOf(next_rand  ) <= -1)
+				{
+					sudokuPuzzle.perm_ind.push(next_rand);
+				}
+			}
+			sudokuPuzzle.perm_ind.sort(Array.NUMERIC);
+			trace(sudokuPuzzle.perm_ind);
+			
+			//generate the player's board now
+			for ( var i : int = 0; i < 81; ++i )
+			{
+				if ( sudokuPuzzle.perm_ind.indexOf(i) > -1 )
+					sudokuPuzzle.player_board.push( sudokuPuzzle.board[i]);
+				else sudokuPuzzle.player_board.push( new square(0)) ;
+			}
+			
+			//Just for printing
+			var player_board1:Array = new Array();
+			for ( var j : int = 0; j < 81; ++j )
+			{
+				
+				player_board1.push(sudokuPuzzle.player_board[j].getValue());
+			}
+			trace(player_board1);
+			
+			return sudokuPuzzle;
 		}
 		
 		public function next_random(possible: Array) : int {

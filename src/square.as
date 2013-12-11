@@ -6,7 +6,7 @@ package
 	 */
 	public class square 
 	{
-		private var value:int;
+		public var value:int;
 		public function square( val:int = 0) 
 		{
 			value = val;

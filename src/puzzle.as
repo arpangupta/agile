@@ -7,9 +7,9 @@ package
 	 
 	public class puzzle 
 	{
-		var board:Array; //the solution board
-		var player_board:Array;//player's playing board
-		var perm_ind:Array; // the permanent indices, that can't be changed
+		var board:Array = new Array(); //the solution board
+		var player_board:Array = new Array();//player's playing board
+		var perm_ind:Array = new Array(); // the permanent indices, that can't be changed
 		public function puzzle() 
 		{
 			trace("Allocating the board");

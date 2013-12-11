@@ -23,7 +23,7 @@ package
 				case 'med':
 					sudokuPuzzle = generator.generateMedPuzzle();
 					break;
-				case 'med':
+				case 'hard':
 					sudokuPuzzle = generator.generateHardPuzzle();
 					break;
 			}
