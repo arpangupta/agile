@@ -18,6 +18,7 @@ package
 			addTest(new TestSrc("checkSetOriginalSquare"));
 			addTest(new TestSrc("checkDuplicateNumber"));
 			addTest(new TestSrc("testGameWin"));
+			addTest(new TestSrc("testSetSquareAfterGameWon"));
 		
 		}
 		

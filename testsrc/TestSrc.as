@@ -339,7 +339,33 @@ package
 				p1.sudokuPuzzle.player_board.push(new square(sol_board[i].getValue()));
 		
 			p1.sudokuPuzzle.player_board.push(new square(0));
-			assertEquals("WON", p1.setSquare(8,8, sol_board[80].getValue()));
+			assertEquals("Won", p1.setSquare(8,8, sol_board[80].getValue()));
+		}
+		
+		public function testSetSquareAfterGameWon() : void
+		{
+			var p1:player = new player();
+			//For the easy game, will be the same for the rest(med/hard) as the only variable thing hers is the board  
+			p1.chooseAndGeneratePuzzle("easy");
+			
+			var sol_board:Array = p1.sudokuPuzzle.board;
+			p1.sudokuPuzzle.perm_ind = new Array(10);
+			p1.sudokuPuzzle.player_board = new Array();
+			
+			for (var i: int = 0; i < 80; ++i )
+				p1.sudokuPuzzle.player_board.push(new square(sol_board[i].getValue()));
+		
+			p1.sudokuPuzzle.player_board.push(new square(0));
+			assertEquals("Won", p1.setSquare(8, 8, sol_board[80].getValue()));
+			
+			//Changing the square value again
+			
+			var before:Array = new Array();
+			for (var i :int = 0; i < 81; ++i  ) before.push(new square(p1.sudokuPuzzle.player_board[i].getValue()));
+			assertEquals("Game Over", p1.setSquare(0, 0, 9));
+			assertEqualsArrays(before, p1.sudokuPuzzle.player_board);
+			
+			
 		}
 		
 		
