@@ -11,5 +11,5 @@ USE CASES:
 3. User changes a number in any square --DONE
 
 Use Case 1:
-User should select a puzzle(easy/medium/difficult) which results in system generating a puzzle
+User should select a puzzle(easy/medium/difficult) which results in system generating a puzzle 
 
