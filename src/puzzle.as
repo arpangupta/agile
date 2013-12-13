@@ -12,6 +12,7 @@ package
 		public var perm_ind:Array = new Array(); // the permanent indices, that can't be changed
 		public function puzzle() 
 		{
+			//the constructor for the puzzle
 			
 			trace("Allocating the board");
 			

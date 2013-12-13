@@ -5,6 +5,9 @@ package
 	import flash.events.MouseEvent;
 	import flash.globalization.Collator;
 	import flash.system.System;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+	
 	/**
 	 * ...
 	 * @author Arpan
@@ -18,7 +21,7 @@ package
 
 		public var welcomeImage:Sprite;
 		
-		[Embed(source="../lib/board.png")]
+		[Embed(source="../lib/board_.png")]
 		private var boardClass:Class;
 		
 		public var boardImage:Sprite;
@@ -78,6 +81,22 @@ package
 		[Embed(source = "../lib/9_perm.png")]
 		private var ninePermClass:Class;
 		
+		[Embed(source = "../lib/blank.png")]
+		private var blankClass:Class;
+		
+		[Embed(source = "../lib/blankListener.png")]
+		private var blankListener:Class;
+		private var blankListenerImage:Sprite = new Sprite();
+		
+		[Embed(source = "../lib/goBack.png")]
+		private var backClass:Class;
+		private var backImage:Sprite = new Sprite();
+		private var backImageBit:Bitmap = new backClass();
+		
+		[Embed(source = "../lib/Solution.png")]
+		private var solutionClass:Class;
+		private var solutionImage:Sprite;
+		
 		public  var x_coord:int = 0;
 		public  var y_coord:int = 0;
 		
@@ -87,8 +106,12 @@ package
 		private var ArrayOfBitmapClassesPerm:Array;
 		private var ArrayOfArrays:Array;
 		public var allSprite:Array = new Array();
-		private var lastSelected:Array = new Array();
-		private var 
+		private var lastSelected:Array = new Array(null, null);
+		private var boardSpriteArray:Array = new Array();
+		private var boardClassArray:Array = new Array();
+		
+		private var info:TextField = new TextField();
+		private var tf:TextFormat;
 		
 		public function player() 
 		{
@@ -118,11 +141,41 @@ package
 			ArrayOfArrays.push(ArrayOfBitmapClassesPerm);
 			ArrayOfArrays.push(ArrayOfBitmapClasses);
 			
-			allSprite = new Array( null,null );
+			ArrayOfArrays.push(blankClass);
+			
+			info = new TextField();
+			info.text = "SUDOKU";
+			info.y = 460;
+			info.x = 165;
+			tf = new TextFormat();
+			tf.size = 30;
+			tf.color = 0x00FF00;
+			info.setTextFormat(tf);
+ 			
+			
+			
+			//allSprite = new Array( null, null );
+			
+			for (var i:int = 0 ; i < 81; ++i )
+			{
+				boardClassArray.push(new blankClass());
+				boardSpriteArray.push(new Sprite());
+				
+				boardSpriteArray[i].addChild(boardClassArray[i]);
+			}
+			
+			
+			blankListenerImage.addChild(new blankListener());
+			//blankListenerImage.doubleClickEnabled = true;
+			this.addEventListener(MouseEvent.CLICK, setSelectedAndChange);
+			blankListenerImage.x = 0;
+			blankListenerImage.y = 0;
+			//donot add it
 		}
 		
 		public function start():void
 		{
+			//the start page of the game
 			welcomeImage = new Sprite();
 			welcomeImage.addChild(new welcomeClass());
 			welcomeImage.x = 0;
@@ -131,8 +184,11 @@ package
 			this.addChild(welcomeImage);
 		}
 		
+		
+		
 		public function onclick(e:MouseEvent):void 
 		{
+			//handling the mouse click on the start page 
 			var x:int = e.localX;
 			var y:int = e.localY;
 			
@@ -146,6 +202,21 @@ package
 				boardImage.addEventListener(MouseEvent.CLICK, this.setSelectedAndChange);
 				this.addChild(boardImage);
 				display_first();
+				this.addChild(info);
+				backImage.addChild(backImageBit);
+				backImage.x = 300;
+				backImage.y = 450;
+				
+				solutionImage = new Sprite();
+				solutionImage.addChild(new solutionClass());
+				solutionImage.x = 0;
+				solutionImage.y = 450;
+				//backImage.addEventListener(MouseEvent.CLICK, this.goback);
+			
+				
+				this.addChild(backImage);
+				this.addChild(solutionImage);
+				this.addChild(blankListenerImage);
 				//display();
 			}
 			
@@ -159,6 +230,21 @@ package
 				boardImage.addEventListener(MouseEvent.CLICK, this.setSelectedAndChange);
 				this.addChild(boardImage);
 				display_first();
+				
+				this.addChild(info);
+				
+				backImage.addChild(backImageBit);
+				backImage.x = 300;
+				backImage.y = 450;
+				//backImage.addEventListener(MouseEvent.CLICK, this.goback);
+				this.addChild(backImage);
+				solutionImage = new Sprite();
+				solutionImage.addChild(new solutionClass());
+				solutionImage.x = 0;
+				solutionImage.y = 450;
+				this.addChild(solutionImage);
+				
+				this.addChild(blankListenerImage);
 			}
 			
 			if (x > 62 && x < 62 + 324 && y > 331 && y < 331 + 47   )
@@ -171,6 +257,20 @@ package
 				boardImage.addEventListener(MouseEvent.CLICK, this.setSelectedAndChange);
 				this.addChild(boardImage);
 				display_first();
+				this.addChild(info);
+				
+				backImage.addChild(backImageBit);
+				backImage.x = 300;
+				backImage.y = 450;
+				//backImage.addEventListener(MouseEvent.CLICK, this.goback);
+				this.addChild(backImage);
+				solutionImage = new Sprite();
+				solutionImage.addChild(new solutionClass());
+				solutionImage.x = 0;
+				solutionImage.y = 450;
+				this.addChild(solutionImage);
+				
+				this.addChild(blankListenerImage);
 			}
 			
 			if (x > 62 && x < 62 + 324 && y > 401 && y < 401 + 47   )
@@ -181,8 +281,28 @@ package
 			
 		}
 		
+		public function goback() :void
+		{
+			//go back to the start screen of the game
+			endGame();
+			this.removeChild(blankListenerImage);
+			this.removeChild(boardImage);
+			this.start();
+		}
+		
+		public function displaySolution():void
+		{
+			var i:int;
+			for ( i = 0; i < 81; ++i)
+				if ( sudokuPuzzle.player_board[i].getValue() == 0 || (sudokuPuzzle.board[i].getValue() != sudokuPuzzle.player_board[i].getValue()))
+					this.draw_cell(i % 9, Math.floor(i/9), 0, sudokuPuzzle.board[i].getValue() -1 ); 
+			
+			winStatus = true;	
+		}
+		
 		public function setSelectedAndChange(e:MouseEvent) :void
 		{
+			//select a square for change and either change it or set it to blank
 			var x:int = e.localX;
 			var y:int = e.localY;
 			
@@ -190,24 +310,94 @@ package
 			
 			var row:int = y / 50;
 			var col:int = x / 50;
-			
-			if (row == 10)
+			if (x > 300 && y> 450 && y <= 500)
 			{
-				trace("CHANGED : " + lastSelected[0] +","+ lastSelected[1] + " To: " +  col );
+				this.goback();
+			}
+			
+			else if (x > 0 && x < 150 && y > 450 && y <= 500 )
+				this.displaySolution();
+			
+			else if (row == 10)
+			{
+			
 				if ( lastSelected[0] != null )
 				{
-					if(setSquare(lastSelected[1], lastSelected[0], col) == "Done" )
-						this.draw_cell( lastSelected[0], lastSelected[1], 1, col);
-					//else update text field
+					//trace("col : " + col);
+					var re:String = setSquare(lastSelected[1], lastSelected[0], col + 1);
 					
+					
+					if (re == "Done" )
+					{
+						this.draw_cell( lastSelected[0], lastSelected[1], 1, col);
+						//trace("CHANGED : " + lastSelected[0] +"," + lastSelected[1] + " To: " +  ( col + 1) );
+						this.info.text = "CHANGED!";
+						
+					}	
+					else if(re == "Won")
+					{
+						this.draw_cell( lastSelected[0], lastSelected[1], 1, col);
+						//trace("CHANGED : " + lastSelected[0] +"," + lastSelected[1] + " To: " +  ( col + 1) );
+						this.info.text = "YOU WIN!";
+					}
+					
+					else if(re == "Game Over")
+					{
+						
+						this.info.text = "GAME OVER";
+					}
+					
+					else if (re == "Duplicate")
+					{
+						this.info.text = "DUPLICATE!";
+					}
+					
+					else if (re == "Illegal Operation")
+					{
+						this.info.text = "Not Allowed!"
+					}
+					
+					tf = new TextFormat();
+					tf.size = 15;
+					tf.color = 0xFF0000;
+					this.info.setTextFormat(tf);
+					this.addChild(info);
+					this.addChild(blankListenerImage);
+				}
+			}
+			
+			else if (row == 9 && (col == 3 || col == 4 || col == 5 ))
+			{
+				if ( lastSelected[0] != null )
+				{
+					trace("col : " + col);
+					re = setSquare(lastSelected[1], lastSelected[0], 0);
+					//trace("Seeting it blank");
+					
+					if ( re == "Done")
+					{
+						this.draw_cell( lastSelected[0], lastSelected[1], 2, 0);
+					//	trace("CHANGED : " + lastSelected[0] +"," + lastSelected[1] + " To: " +  ( col + 1) );
+						this.info.text = "Blank: " + sudokuPuzzle.player_board[lastSelected[1]*9 + lastSelected[0]].getValue();
+						tf = new TextFormat();
+						tf.size = 15;
+						tf.color = 0xFF0000;
+						this.info.setTextFormat(tf);
+						this.addChild(info);
+						this.addChild(blankListenerImage);
+					}
 				}
 			}
 			
 			else
 			{
-				trace("SELCTED: " + col + ","+ row);
+				//trace("SELCTED: " + col + ","+ row);
 				lastSelected[0] = col;
 				lastSelected[1] = row;
+				
+				this.info.text = "";
+				this.addChild(info);
+				this.addChild(blankListenerImage);
 			}
 		}
 		
@@ -223,21 +413,48 @@ package
 				}
 				else
 				{
-					
+					this.draw_cell(i % 9, Math.floor(i/9), 2, 0 );
 				}
 			}
 		}
 		
 		public function draw_cell(x:int, y:int, index1:int, index2:int ): void
 		{
-			var cell:Sprite = new Sprite();
-			var tempClass:Class = ArrayOfArrays[index1][index2];
-			cell.addChild(new tempClass());
+			var tempClass:Class ;
+			if (index1 < 2)
+			{
+			//	var cell:Sprite = new Sprite();
+				tempClass = ArrayOfArrays[index1][index2];
+				//cell.addChild(new tempClass());
+			}
 			
-			cell.x = x_coord + ((x > 0)? (offset1 + (x - 1) * offset2) : (0)  );
-			cell.y = y_coord + ((y > 0)? (offset1 + (y - 1) * offset2) : (0)  ); 
-			allSprite.push(cell);
-			addChild(cell);
+			else
+			{
+				tempClass = ArrayOfArrays[index1];
+			}
+			
+			//cell.x = x_coord + ((x > 0)? (offset1 + (x - 1) * offset2) : (0)  );
+			//cell.y = y_coord + ((y > 0)? (offset1 + (y - 1) * offset2) : (0)  ); 
+			//allSprite.push(cell);
+			if (boardSpriteArray[9 * y + x] == null)
+			{
+				boardSpriteArray[9 * y + x] = new Sprite();
+			}
+		
+			
+			boardSpriteArray[9 * y + x].removeChild(boardClassArray[9 * y + x]);
+			boardClassArray[9 * y + x] = new tempClass();
+			
+
+			
+			
+			boardSpriteArray[9 * y + x].addChild(boardClassArray[9 * y + x]);
+			boardSpriteArray[9 * y + x].x = x_coord + ((x > 0)? (offset1 + (x - 1) * offset2) : (0)  );
+			boardSpriteArray[9 * y + x].y = y_coord + ((y > 0)? (offset1 + (y - 1) * offset2) : (0)  ); 
+			
+			this.addChild(boardSpriteArray[9 * y + x]);
+			this.addChild(blankListenerImage);
+			
 		}
 		
 		public function chooseAndGeneratePuzzle(type:String) : puzzle
@@ -263,6 +480,7 @@ package
 			sudokuPuzzle.board = new Array();
 			sudokuPuzzle.perm_ind = new Array();
 			sudokuPuzzle.player_board = new Array();
+			winStatus = false;
 		}
 		
 		public function setSquare(i : int , j : int, value : int) : String
@@ -278,10 +496,11 @@ package
 					player_board_array.push(sudokuPuzzle.player_board[i].getValue());
 				}
 				
-				trace("Player Board Array : " + player_board_array);
+				//trace("Player Board Array : " + player_board_array);
 				
 				if(!is_possible_number(index, value, player_board_array))
-				{				
+				{ 
+					//trace("Duplicate");
 					return "Duplicate";
 				}
 				
@@ -289,10 +508,10 @@ package
 				{
 					
 					sudokuPuzzle.player_board[index].value = value;
+					//trace("CHANGED THE VALUE");
 					if (won())
 					{
 						winStatus = true;
-						endGame();
 						return "Won";
 					}
 					else
@@ -360,7 +579,10 @@ package
             var row:int = return_row(cell);
             var col:int = return_col(cell);
             var block:int = return_block(cell);
-            return is_possible_row(number,row,sudoku) && is_possible_col(number,col,sudoku) && is_possible_block(number,block,sudoku);
+			if (number == 0) 
+				return true; 
+			
+			return is_possible_row(number,row,sudoku) && is_possible_col(number,col,sudoku) && is_possible_block(number,block,sudoku);
         }
 		
 		public function return_row(cell : int) :int {
