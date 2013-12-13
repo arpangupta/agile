@@ -537,11 +537,14 @@ package
 		public function won() : Boolean
 		{
 			//check for the winning condition
-			if (sudokuPuzzle.board.length == sudokuPuzzle.player_board.length && areEqual(sudokuPuzzle.board, sudokuPuzzle.player_board ))
-				return true;
-			else return false;
+			for (var i : int = 0; i < 81; ++i )
+			{
+				if(sudokuPuzzle.player_board[i].getValue() == 0)
+					return false;
+			}
+			
+			return true;
 		}
-		
 		public function areEqual(board1:Array, board2 : Array):Boolean
 		{
 			//helper function to check if 2 arrays are equal
