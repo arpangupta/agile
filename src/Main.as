@@ -28,10 +28,8 @@ package
 				
 				var p1:player = new player();
 				p1.start();
-				
-		 		init();
-			
-				
+				stage.addChild(p1);
+		 		init();	
 				
 			}
 			else addEventListener(Event.ADDED_TO_STAGE, init);
