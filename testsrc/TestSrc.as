@@ -32,7 +32,7 @@ package
 			assertTrue(is_Valid(board_array));
 				
 		}
-		function is_Valid(sudoku) {
+		function is_Valid(sudoku:Array):Boolean {
             for (var i=0; i<=8; i++) {
                 if (!is_correct_block(i,sudoku) || !is_correct_row(i,sudoku) || !is_correct_col(i,sudoku)) {
                     return false;
@@ -41,7 +41,7 @@ package
             return true;
         }
 		
-		function is_correct_block(block,sudoku) {
+		function is_correct_block(block:int,sudoku:Array):Boolean {
             var right_sequence = new Array(1,2,3,4,5,6,7,8,9);
             var block_temp= new Array();
             for (var i=0; i<=8; i++) {
@@ -51,7 +51,7 @@ package
             return block_temp.join() == right_sequence.join();
         }
 		
-		function is_correct_row(row,sudoku) {
+		function is_correct_row(row:int,sudoku:Array):Boolean {
             var right_sequence = new Array(1,2,3,4,5,6,7,8,9);
             var row_temp= new Array();
             for (var i=0; i<=8; i++) {
@@ -61,7 +61,7 @@ package
             return row_temp.join() == right_sequence.join();
         }
 		
-		 function is_correct_col(col,sudoku) {
+		 function is_correct_col(col:int,sudoku:Array):Boolean {
             var right_sequence = new Array(1,2,3,4,5,6,7,8,9);
             var col_temp= new Array();
             for (var i=0; i<=8; i++) {
@@ -245,6 +245,7 @@ package
 		
 		public function checkDuplicateNumber() : void
 		{
+			//to test for inserting a duplicate number
 			var p1:player = new player();
 			//check for easy puzzle
 			p1.chooseAndGeneratePuzzle("easy");

@@ -26,6 +26,7 @@ package
 				//stage.addChild(unittests);
 				//unittests.start(AddTests, null, TestRunner.SHOW_TRACE);
 				
+				//make a player and start the game 
 				var p1:player = new player();
 				p1.start();
 				stage.addChild(p1);

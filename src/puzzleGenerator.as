@@ -154,6 +154,7 @@ package
 		}
 		
 		public function next_random(possible: Array) : int {
+			//get the min choices for the next try
             var mai:int = 9;
             var min_choices:int = 0;
             for (var i:int=0; i<=80; i++) {
@@ -168,18 +169,22 @@ package
         }
 		
 		public function return_row(cell : int) :int {
+			//helper function
             return Math.floor(cell / 9);
         }
 		
 		public function return_col(cell : int) : int {
+			//helper function
             return cell % 9;
         }
 		
 		public function return_block(cell:int) :int {
+			//helper function
             return Math.floor(return_row(cell) / 3) * 3 + Math.floor(return_col(cell) / 3);
         }
 		
-		public function is_possible_row(number:int,row:int,sudoku:Array):Boolean {
+		public function is_possible_row(number:int, row:int, sudoku:Array):Boolean {
+			//check if the putting the number is allowed in the row
             var possible:Boolean = true;
             for (var i:int=0; i<=8; i++) {
                 if (sudoku[row*9+i] == number) {
@@ -189,7 +194,8 @@ package
             }
             return possible;
         }
-        public function is_possible_col(number:int,col:int,sudoku:Array):Boolean {
+        public function is_possible_col(number:int, col:int, sudoku:Array):Boolean {
+			//check if the putting the number is allowed in the column
             var possible:Boolean = true;
             for (var i:int=0; i<=8; i++) {
                 if (sudoku[col+9*i] == number) {
@@ -199,7 +205,8 @@ package
             }
             return possible;
         }
-        public function is_possible_block(number:int,block:int,sudoku:Array):Boolean {
+        public function is_possible_block(number:int, block:int, sudoku:Array):Boolean {
+			//check if the putting the number is allowed in the block
             var possible:Boolean = true;
             for (var i:int=0; i<=8; i++) {
                 if (sudoku[Math.floor(block/3)*27+i%3+9*Math.floor(i/3)+3*(block%3)] == number) {
@@ -209,14 +216,16 @@ package
             }
             return possible;
         }
-        public function is_possible_number(cell:int,number:int,sudoku:Array):Boolean {
+        public function is_possible_number(cell:int, number:int, sudoku:Array):Boolean {
+			//check if the putting the number is allowed
             var row:int = return_row(cell);
             var col:int = return_col(cell);
             var block:int = return_block(cell);
             return is_possible_row(number,row,sudoku) && is_possible_col(number,col,sudoku) && is_possible_block(number,block,sudoku);
         }
 		
-		public function is_correct_row(row:int,sudoku:Array):Boolean {
+		public function is_correct_row(row:int, sudoku:Array):Boolean {
+			//check if it is the correct row
             var right_sequence:Array = new Array(1,2,3,4,5,6,7,8,9);
             var row_temp:Array= new Array();
             for (var i:int=0; i<=8; i++) {
@@ -225,7 +234,8 @@ package
             row_temp.sort();
             return row_temp.join() == right_sequence.join();
         }
-        public function is_correct_col(col:int,sudoku:Array):Boolean {
+        public function is_correct_col(col:int, sudoku:Array):Boolean {
+			//check if it is the correct column
             var right_sequence:Array = new Array(1,2,3,4,5,6,7,8,9);
             var col_temp:Array= new Array();
             for (var i:int=0; i<=8; i++) {
@@ -234,7 +244,8 @@ package
             col_temp.sort();
             return col_temp.join() == right_sequence.join();
         }
-        public function is_correct_block(block:int,sudoku:Array):Boolean {
+        public function is_correct_block(block:int, sudoku:Array):Boolean {
+			//check if it is the correct block
             var right_sequence:Array = new Array(1,2,3,4,5,6,7,8,9);
             var block_temp:Array = new Array();
             for (var i:int=0; i<=8; i++) {
@@ -244,6 +255,7 @@ package
             return block_temp.join() == right_sequence.join();
         }
         public function is_solved_sudoku(sudoku:Array):Boolean {
+			//check if the sudoku is solved
             for (var i:int=0; i<=8; i++) {
                 if (!is_correct_block(i,sudoku) || !is_correct_row(i,sudoku) || !is_correct_col(i,sudoku)) {
                     return false;
@@ -251,7 +263,8 @@ package
             }
             return true;
         }
-        public function determine_possible_values(cell:int,sudoku:Array):Array {
+        public function determine_possible_values(cell:int, sudoku:Array):Array {
+			//return an array of possible values to try
             var possible:Array = new Array();
             for (var i:int=1; i<=9; i++) {
                 if (is_possible_number(cell,i,sudoku)) {
@@ -260,12 +273,14 @@ package
             }
             return possible;
         }
-        public function determine_random_possible_value(possible:Array,cell:int):int {
+        public function determine_random_possible_value(possible:Array, cell:int):int {
+			//return a random integer
             var random_picked:int = Math.floor(Math.random() * possible[cell].length);
             return possible[cell][random_picked];
         }
 		
 		public function scan_sudoku_for_unique(sudoku:Array) {
+			//determine the possible values or return false
             var possible:Array = new Array();
             for (var i:int=0; i<=80; i++) {
                 if (sudoku[i] == 0) {
@@ -317,7 +332,8 @@ package
 				//return sudoku;
 		}
 		
-		public function remove_attempt(attempt_array:Array,number:int):Array {
+		public function remove_attempt(attempt_array:Array, number:int):Array {
+			//remove the previous attempt in backtracking
             var new_array:Array = new Array();
             for (var i:int=0; i<attempt_array.length; i++) {
                 if (attempt_array[i] != number) {

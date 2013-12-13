@@ -115,6 +115,8 @@ package
 		
 		public function player() 
 		{
+			//the constructor
+			
 			ArrayOfBitmapClasses = new Array();
 			ArrayOfBitmapClasses.push(oneClass);
 			ArrayOfBitmapClasses.push(twoClass);
@@ -292,6 +294,7 @@ package
 		
 		public function displaySolution():void
 		{
+			//display the solution for the game
 			var i:int;
 			for ( i = 0; i < 81; ++i)
 				if ( sudokuPuzzle.player_board[i].getValue() == 0 || (sudokuPuzzle.board[i].getValue() != sudokuPuzzle.player_board[i].getValue()))
@@ -302,7 +305,7 @@ package
 		
 		public function setSelectedAndChange(e:MouseEvent) :void
 		{
-			//select a square for change and either change it or set it to blank
+			//select a square and either change it or set it to blank
 			var x:int = e.localX;
 			var y:int = e.localY;
 			
@@ -320,6 +323,7 @@ package
 			
 			else if (row == 10)
 			{
+				//change it
 			
 				if ( lastSelected[0] != null )
 				{
@@ -368,6 +372,7 @@ package
 			
 			else if (row == 9 && (col == 3 || col == 4 || col == 5 ))
 			{
+				//make it blank
 				if ( lastSelected[0] != null )
 				{
 					trace("col : " + col);
@@ -391,6 +396,7 @@ package
 			
 			else
 			{
+				//select a square
 				//trace("SELCTED: " + col + ","+ row);
 				lastSelected[0] = col;
 				lastSelected[1] = row;
@@ -403,6 +409,7 @@ package
 		
 		public function display_first():void
 		{
+			// the first diplay of board and the permanent squares
 			var i:int;
 			for ( i = 0; i < 81; ++i)
 			{
@@ -420,6 +427,7 @@ package
 		
 		public function draw_cell(x:int, y:int, index1:int, index2:int ): void
 		{
+			//helper function to draw the cells on board
 			var tempClass:Class ;
 			if (index1 < 2)
 			{
@@ -459,6 +467,7 @@ package
 		
 		public function chooseAndGeneratePuzzle(type:String) : puzzle
 		{
+			//function to generate the specified puzzle
 			var generator:puzzleGenerator = new puzzleGenerator();
 			switch(type)
 			{	
@@ -477,6 +486,7 @@ package
 		
 		public function endGame() : void
 		{
+			//to end the game
 			sudokuPuzzle.board = new Array();
 			sudokuPuzzle.perm_ind = new Array();
 			sudokuPuzzle.player_board = new Array();
@@ -485,6 +495,7 @@ package
 		
 		public function setSquare(i : int , j : int, value : int) : String
 		{
+			//to handle the logic for setting a square in te player_board
 			if ( !winStatus)
 			{
 			var index:int = (i * 9) + j;
@@ -525,6 +536,7 @@ package
 		
 		public function won() : Boolean
 		{
+			//check for the winning condition
 			if (sudokuPuzzle.board.length == sudokuPuzzle.player_board.length && areEqual(sudokuPuzzle.board, sudokuPuzzle.player_board ))
 				return true;
 			else return false;
@@ -532,6 +544,7 @@ package
 		
 		public function areEqual(board1:Array, board2 : Array):Boolean
 		{
+			//helper function to check if 2 arrays are equal
 			var eq:Boolean = true;
 			var i:int = 0;
 			while(eq && i < board1.length)
@@ -545,7 +558,8 @@ package
 			return eq;
 		}
 		
-		public function is_possible_row(number : int,row :int,sudoku : Array):Boolean {
+		public function is_possible_row(number : int, row :int, sudoku : Array):Boolean {
+			//check if putting a number is allowed in the row
             var possible:Boolean = true;
             for (var i:int=0; i<=8; i++) {
                 if (sudoku[row*9+i] == number) {
@@ -555,7 +569,8 @@ package
             }
             return possible;
         }
-        public function is_possible_col(number:int,col:int,sudoku:Array): Boolean {
+        public function is_possible_col(number:int, col:int, sudoku:Array): Boolean {
+			//check if the putting the number is allowed in the column
             var possible:Boolean = true;
             for (var i:int=0; i<=8; i++) {
                 if (sudoku[col+9*i] == number) {
@@ -565,7 +580,9 @@ package
             }
             return possible;
         }
-        public function is_possible_block(number:int,block:int,sudoku:Array):Boolean {
+        public function is_possible_block(number:int, block:int, sudoku:Array):Boolean {
+			//check if the putting the number is allowed in the block
+			
             var possible:Boolean = true;
             for (var i:int =0; i<=8; i++) {
                 if (sudoku[Math.floor(block/3)*27+i%3+9*Math.floor(i/3)+3*(block%3)] == number) {
@@ -575,7 +592,8 @@ package
             }
             return possible;
         }
-        public function is_possible_number(cell:int,number:int,sudoku:Array) : Boolean {
+        public function is_possible_number(cell:int, number:int, sudoku:Array) : Boolean {
+			//check if the putting the number is allowed
             var row:int = return_row(cell);
             var col:int = return_col(cell);
             var block:int = return_block(cell);
@@ -586,14 +604,17 @@ package
         }
 		
 		public function return_row(cell : int) :int {
+			//helper function
             return Math.floor(cell / 9);
         }
 		
 		public function return_col(cell : int) : int {
+			//helper function
             return cell % 9;
         }
 		
 		public function return_block(cell:int ): int {
+			//helper function
             return Math.floor(return_row(cell) / 3) * 3 + Math.floor(return_col(cell) / 3);
         }
 	}

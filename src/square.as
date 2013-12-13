@@ -14,6 +14,7 @@ package
 		
 		public function getValue( ) :int
 		{
+			//return the value at a particular square
 			return value;
 		}
 		
